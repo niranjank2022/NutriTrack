@@ -17,5 +17,5 @@ source venv/bin/activate        # linux/mac/git-bash
 .\venv\Scripts\activate         # windows
 
 pip install -r requirements.txt
-python app.py
+python src/app.py
 ```
