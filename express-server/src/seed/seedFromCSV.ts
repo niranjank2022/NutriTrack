@@ -7,7 +7,7 @@ import config from "../config";
 
 async function seedDatabase() {
   try {
-    const filePath = path.join(__dirname, "nutrition_dataset.csv");
+    const filePath = path.join(__dirname, "nutrients.csv");
     const nutrients: any[] = [];
 
     await mongoose.connect(config.MONGODB_URI!);

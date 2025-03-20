@@ -122,21 +122,32 @@ const HomeScreen: React.FC = () => {
         // After both images are captured, call the mock function
         try {
           const res1 = await axios.post(
-            "http://192.168.1.3:3000/apis/foods/detect/",
+            "http://192.168.250.31:3000/apis/foods/detect/",
             {
               images: [leftImageUri?.substring(22), topImageUri?.substring(22)],
             }
           );
           const { foodName, confidence } = res1.data;
 
+          console.log(foodName);
           const res2 = await axios.get(
-            "http://192.168.1.3:3000/apis/nutrients/" + foodName 
-            
+            "http://192.168.250.31:3000/apis/nutrients/" + foodName
           );
-          console.log(foodName, confidence, res2);
+          const { name, calories, protein, carbohydrate, fat, fiber } =
+            res2.data;
 
           // Set the detected food info to state and open the modal
-          setFoodInfo(detectedFood);
+          setFoodInfo({
+            name: foodName,
+            healthScore: Math.floor(Math.random() * 100),
+            calories: calories,
+            carbs: carbohydrate,
+            protein: protein,
+            fats: fat,
+            leftImage: leftImageUri,
+            topImage: topImageUri,
+            estimatedVolume: 100,
+          });
           setModalVisible(true);
         } catch (err) {
           alert("Some error occurred in image processing... Try again later.");
@@ -145,6 +156,20 @@ const HomeScreen: React.FC = () => {
     }
   };
 
+  interface FoodItem {
+    name: string;
+    calories: number;
+    protein: number;
+    carbs: number;
+    fats: number;
+  }
+
+  interface FoodInfo extends FoodItem {
+    healthScore: number;
+    leftImage: string | null;
+    topImage: string | null;
+    estimatedVolume: number;
+  }
   const renderDatePicker = () => {
     let days = [];
     let today = new Date();
@@ -368,7 +393,7 @@ const HomeScreen: React.FC = () => {
                           fontSize: 12,
                         }}
                       >
-                        07:24
+                        {/* 07:24 */}
                       </Text>
                     </View>
                   </View>
@@ -458,7 +483,7 @@ const HomeScreen: React.FC = () => {
                     <Text>Estimated Volume</Text>
                   </View>
 
-                  <View
+                  {/* <View
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
@@ -498,7 +523,7 @@ const HomeScreen: React.FC = () => {
                     <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                       {foodInfo.healthScore}/10
                     </Text>
-                  </View>
+                  </View> */}
                 </View>
                 <TouchableOpacity
                   onPress={() => setModalVisible(false)}
