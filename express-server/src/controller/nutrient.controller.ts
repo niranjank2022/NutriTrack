@@ -5,6 +5,11 @@ export async function getNutrientsByFoodName(req: Request, res: Response) {
   try {
     const foodName = req.params.foodName;
     const data = await Nutrients.findOne({ foodName: foodName });
+    if (!data) {
+      res.status(404).json({ message: "Food item not found." });
+      return;
+    }
+    
     res.status(200).json({
       name: data?.foodName,
       calories: data?.calories,

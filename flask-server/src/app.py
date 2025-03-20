@@ -29,7 +29,8 @@ def identify_food(img_array):
 def predict():
     try:
         data = request.json
-        image_data = data.get("image")
+        images = data.get("images")
+        image_data = images[0]
 
         if not image_data:
             return jsonify({"error": "No image provided"}), 400

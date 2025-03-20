@@ -7,14 +7,21 @@ import config from "../config";
 
 async function seedDatabase() {
   try {
-    const filePath = path.join(__dirname, "nutrients.csv");
+    const filePath = path.join(__dirname, "nutrition_dataset.csv");
     const nutrients: any[] = [];
 
     await mongoose.connect(config.MONGODB_URI!);
 
     fs.createReadStream(filePath)
       .pipe(csvParser())
+      .on("headers", (headers: string[]) => {
+        const cleanedHeaders = headers.map((header) =>
+          header.replace(/^['"]|['"]$/g, "")
+        );
+        console.log("Cleaned Headers:", cleanedHeaders);
+      })
       .on("data", (row) => {
+        console.log(row);
         nutrients.push({
           foodName: (row.foodName as string).trim().toLowerCase(),
           calories: parseFloat(row.calories),
