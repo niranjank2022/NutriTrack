@@ -9,16 +9,16 @@ export default function Settings() {
     <View style={styles.container}>
       <Text style={styles.heading}>Settings</Text>
       
-      <View style={styles.settingItem}>
+      {/* <View style={styles.settingItem}>
         <Text style={styles.settingText}>Enable Notifications</Text>
         <Switch
           value={notifications}
           onValueChange={() => setNotifications(!notifications)}
         />
-      </View>
+      </View> */}
 
       <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Dark Mode</Text>
+        <Text style={styles.settingText}>Light Mode</Text>
         <Switch
           value={darkMode}
           onValueChange={() => setDarkMode(!darkMode)}

@@ -39,7 +39,7 @@ export default function Login() {
   return (
     <LinearGradient colors={["#003973", "#E5E5BE"]} style={styles.container}>
       <Animated.View style={[styles.loginBox, { transform: [{ scale }] }]}>
-        <Text style={styles.head}>Welcome Back</Text>
+        <Text style={styles.head}>Welcome </Text>
 
         <TextInput
           placeholder="Email Address"

@@ -6,7 +6,7 @@ export default function UserInfo() {
     <View style={styles.container}>
       <Image source={require("../../../images/logo.webp")} style={styles.profileImage} />
       <Text style={styles.username}>John Doe</Text>
-      <Text style={styles.info}>Email: johndoe@example.com</Text>
+      <Text style={styles.info}>Email: johndoe@gmail.com</Text>
       <Text style={styles.info}>Age: 28</Text>
       <Text style={styles.info}>Weight: 75kg</Text>
       <Text style={styles.info}>Height: 5'9"</Text>

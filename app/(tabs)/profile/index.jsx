@@ -1,91 +1,106 @@
-import {
-    View,
-    Text,
-    Pressable,
-    StyleSheet,
-    Dimensions,
-    Image,
-  } from "react-native";
-  import { router } from "expo-router";
-  
-  const { width } = Dimensions.get("window");
-  
-  export default function Profile() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image source={require("../../../images/logo.webp")} style={styles.logo} />
-          <Text style={styles.userName}>Username</Text>
-        </View>
-  
-        <Pressable style={({ pressed }) => [
-            styles.button,
-            { opacity: pressed ? 0.6 : 1 },]} 
-             onPress={() => router.push("profile/userInfo")}>
-          <Text style={styles.buttonText}>User Info</Text>
-        </Pressable>
-  
-        <Pressable style={({ pressed})=>[styles.button,{opacity :pressed ?0.6:1},]} onPress={() => router.push("profile/History")}>
-          <Text style={styles.buttonText}>History</Text>
-        </Pressable>
-  
-        <Pressable style={({ pressed})=>[styles.button,{opacity :pressed ?0.6:1},]} onPress={() => router.push("profile/settings")}>
-          <Text style={styles.buttonText}>Settings</Text>
-        </Pressable>
-  
-        <Pressable style={({ pressed})=>[styles.button,{opacity :pressed ?0.6:1},]} onPress={() => router.push("profile/Help")}>
-          <Text style={styles.buttonText}>Help & FAQs</Text>
-        </Pressable>
+import React from "react";
+import { View, Text, Pressable, StyleSheet, Dimensions, Image } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+
+const { width } = Dimensions.get("window");
+
+export default function Profile() {
+  return (
+    <View style={styles.container}>
+
+      {/* Profile Section */}
+      <View style={styles.profileCard}>
+        <Image source={require("../../../images/logo.webp")} style={styles.profileImage} />
+        <Text style={styles.userName}>John Doe</Text>
       </View>
-    );
-  }
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#003973",
-      alignItems: "center",
-      paddingTop: 50,
-    },
-    imageContainer: {
-      flexDirection: "row",
-      alignItems: "center",
-      backgroundColor: "rgba(255, 255, 255, 0.2)",
-      padding: 15,
-      borderRadius: 15,
-      marginBottom: 30,
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.3,
-      shadowRadius: 5,
-    },
-    logo: {
-      width: 80,
-      height: 80,
-      borderRadius: 40,
-      marginRight: 15,
-    },
-    userName: {
-      fontSize: 20,
-      fontWeight: "bold",
-      color: "#E5E5BE",
-    },
-    button: {
-      width: width * 0.85,
-      paddingVertical: 15,
-      marginVertical: 10,
-      backgroundColor: "rgba(255, 255, 255, 0.2)",
-      borderRadius: 25,
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 4,
-    },
-    buttonText: {
-      fontSize: 18,
-      fontWeight: "bold",
-      color: "#FFFFFF",
-    },
-  });
-  
+
+      {/* Menu Options */}
+      <Pressable style={({ pressed }) => [styles.card,{ opacity: pressed ? 0.6 : 1 },]} onPress={() => router.push("profile/userInfo")}>
+        <Ionicons name="person-outline" size={22} color="#333" />
+        <Text style={styles.cardText}>User Info</Text>
+      </Pressable>
+
+      <Pressable style={({ pressed }) => [styles.card,{ opacity: pressed ? 0.6 : 1 },]} onPress={() => router.push("profile/History")}>
+        <Ionicons name="time-outline" size={22} color="#333" />
+        <Text style={styles.cardText}>History</Text>
+      </Pressable>
+
+      <Pressable style={({ pressed }) => [styles.card,{ opacity: pressed ? 0.6 : 1 },]} onPress={() => router.push("profile/settings")}>
+        <Ionicons name="settings-outline" size={22} color="#333" />
+        <Text style={styles.cardText}>Settings</Text>
+      </Pressable>
+
+      <Pressable style={({ pressed }) => [styles.card,{ opacity: pressed ? 0.6 : 1 },]} onPress={() => router.push("profile/Help")}>
+        <Ionicons name="help-circle-outline" size={22} color="#333" />
+        <Text style={styles.cardText}>Help & FAQs</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFF", // Light background
+    alignItems: "center",
+    paddingTop: 50,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+    marginBottom: 20,
+  },
+  appName: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  profileCard: {
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    padding: 20,
+    borderRadius: 15,
+    width: "90%",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    marginBottom: 20,
+    elevation: 5,
+  },
+  profileImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginBottom: 10,
+  },
+  userName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    width: "90%",
+    borderRadius: 15,
+    marginVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  cardText: {
+    fontSize: 16,
+    fontWeight: "500",
+    marginLeft: 15,
+    color: "#333",
+  },
+});
+
