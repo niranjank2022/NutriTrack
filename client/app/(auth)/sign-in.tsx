@@ -35,10 +35,13 @@ export default function Login() {
     if (!valid) return;
 
     try {
-      const res = await axios.post("http://192.168.1.3:3000/apis/auth/signin", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "http://www.localhost:3000/apis/auth/signin",
+        {
+          email: email,
+          password: password,
+        }
+      );
 
       console.log(res.data);
 

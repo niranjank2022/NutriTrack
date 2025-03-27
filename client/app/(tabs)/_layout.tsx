@@ -32,6 +32,16 @@ export default function homelayout() {
           headerTitle: "Profile",
         }}
       />
+      <Tabs.Screen
+        name="features"
+        options={{
+          headerShown: false,
+          tabBarIcon: () => {
+            return <Ionicons name="fitness-outline" size={24} />;
+          },
+          headerTitle: "Features",
+        }}
+      />
     </Tabs>
   );
 }
