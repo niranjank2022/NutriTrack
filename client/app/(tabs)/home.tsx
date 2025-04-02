@@ -55,7 +55,7 @@ const HomeScreen: React.FC = () => {
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
         />
-        <NutrientInfo />
+        <NutrientInfo selectedDate={selectedDate} />
         <FoodLog foodLog={foodLog} selectedDate={selectedDate} />
       </ScrollView>
       <CameraCapture

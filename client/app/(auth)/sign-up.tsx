@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import {
   View,
@@ -9,7 +10,8 @@ import {
 } from "react-native";
 import { router, Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-import axios from "axios";
+import ApiService from "../apis";
+import { storeData } from "../utils/storage.utils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,21 +37,16 @@ export default function Login() {
     if (!valid) return;
 
     try {
-      const res = await axios.post("http://192.168.1.3:3000/apis/auth/signup", {
-        email,
-        password,
-      });
-
-      console.log(res.data);
-
-      if (res.status === 200) {
-        router.push("/home");
+      const res = await ApiService.signup(email, password);
+      const { userId } = res.data;
+      storeData("userId", userId);
+      router.push("/Home");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError({ email: "", password: error.response?.data.message });
       } else {
-        setError({ email: "", password: "Sign up failed" });
+        setError({ email: "", password: "Something went wrong!" });
       }
-    } catch (err) {
-      console.error("Login Error:", err);
-      setError({ email: "", password: "Something went wrong!" });
     }
   };
 

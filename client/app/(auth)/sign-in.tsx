@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { router, Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+import ApiService from "../apis";
+import { storeData } from "../utils/storage.utils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,24 +37,18 @@ export default function Login() {
     if (!valid) return;
 
     try {
-      const res = await axios.post(
-        "http://www.localhost:3000/apis/auth/signin",
-        {
-          email: email,
-          password: password,
-        }
-      );
-
-      console.log(res.data);
-
-      if (res.status === 200) {
-        router.push("/home");
+      const res = await ApiService.signin(email, password);
+      const { userId } = res.data;
+      storeData("userId", userId);
+      router.push("/Home");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response);
+        setError({ email: "", password: error.response?.data.message });
       } else {
-        setError({ email: "", password: "Invalid credentials" });
+        setError({ email: "", password: "Something went wrong!" });
+        console.log("Some error occurred", error);
       }
-    } catch (err) {
-      console.error("Login Error:", err);
-      setError({ email: "", password: "Something went wrong!" });
     }
   };
 

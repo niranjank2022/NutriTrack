@@ -1,19 +1,52 @@
-import React from "react";
+import axios from "axios";
 import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import ApiService from "../apis";
+import { getData } from "../utils/storage.utils";
 
-interface Nutrient {
+interface INutrient {
   label: string;
-  value: string;
+  value: number;
   icon: string;
 }
 
-const NutrientInfo: React.FC = () => {
-  const nutrients: Nutrient[] = [
-    { label: "Proteins", value: "142g", icon: "food-drumstick" },
-    { label: "Carbs", value: "190g", icon: "bread-slice" },
-    { label: "Fats", value: "40g", icon: "cheese" },
-  ];
+const NutrientInfo: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
+  const [calories, setCalories] = useState<number>(0);
+  const [nutrients, setNutrients] = useState<INutrient[]>([
+    { label: "Proteins", value: 0, icon: "food-drumstick" },
+    { label: "Carbs", value: 0, icon: "bread-slice" },
+    { label: "Fats", value: 0, icon: "cheese" },
+  ]);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const userId = getData("userId");
+        const res = await ApiService.getNutrientsLog(
+          userId!,
+          selectedDate.toDateString()
+        );
+        const { calories, protein, carbs, fats } = res.data.nutrients;
+        setCalories(calories);
+        setNutrients([
+          { label: "Proteins", value: protein, icon: "food-drumstick" },
+          { label: "Carbs", value: carbs, icon: "bread-slice" },
+          { label: "Fats", value: fats, icon: "cheese" },
+        ]);
+        console.log(nutrients);
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          setCalories(0);
+          setNutrients([
+            { label: "Proteins", value: 0, icon: "food-drumstick" },
+            { label: "Carbs", value: 0, icon: "bread-slice" },
+            { label: "Fats", value: 0, icon: "cheese" },
+          ]);
+        }
+      }
+    })();
+  }, [selectedDate]);
 
   return (
     <View>
@@ -31,7 +64,7 @@ const NutrientInfo: React.FC = () => {
           elevation: 5,
         }}
       >
-        <Text style={{ fontSize: 26, fontWeight: "bold" }}>2,178</Text>
+        <Text style={{ fontSize: 26, fontWeight: "bold" }}>{calories}</Text>
         <Text style={{ fontSize: 18 }}>Calories </Text>
         <Ionicons
           name="flame"

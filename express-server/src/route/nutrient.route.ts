@@ -1,7 +1,11 @@
 import { Router } from "express";
-import { getNutrientsByFoodName } from "../controller/nutrient.controller";
+import {
+  getNutrientsByFoodName,
+  getNutrientLogByDate,
+} from "../controller/nutrient.controller";
 
 const router = Router();
 router.get("/:foodName/", getNutrientsByFoodName);
+router.get("/logs/:userId/:date", getNutrientLogByDate);
 
 export default router;

@@ -11,11 +11,17 @@ const app: Application = express();
 
 app.use(express.json({ limit: "10mb" })); // Default is "100kb"
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
-app.use(cors());
-app.use("/apis/auth/", authRouter);
-app.use("/apis/foods/", foodsRouter);
-app.use("/apis/nutrients/", nutrientsRouter);
-app.use("/apis/chatbot/", chatbotRouter);
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET, POST, PUT, DELETE",
+    allowedHeaders: "Content-Type, Authorization",
+  })
+);
+app.use("/auth/", authRouter);
+app.use("/foods/", foodsRouter);
+app.use("/nutrients/", nutrientsRouter);
+app.use("/chatbot/", chatbotRouter);
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found!" });
 });
