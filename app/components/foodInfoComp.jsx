@@ -15,7 +15,7 @@ const FoodInfoModal = ({modalVisible,setModalVisible,foodInfo,setImageShow}) => 
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{foodInfo.name}</Text>
                     <View style={{ backgroundColor: '#003973', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15 }}>
-                      <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 12 }}>07:24</Text>
+                      {/* <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 12 }}>07:24</Text> */}
                     </View>
                   </View>
                   

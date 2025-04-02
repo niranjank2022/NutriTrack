@@ -9,6 +9,8 @@ const CameraCapture = ({setFoodInfo,setModalVisible,setImageShow,imageShow}) => 
      const [leftImageUri, setLeftImageUri] = useState(null);
       const [topImageUri, setTopImageUri] = useState(null);
       const [capturingTopView, setCapturingTopView] = useState(false);
+      // const [logButton,setLogButton]=useState(false);
+      // const [chectNutribtn,setcheckNutribtn]=useState(false);
      useEffect(() => {
         (async () => {
           const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -33,7 +35,7 @@ const CameraCapture = ({setFoodInfo,setModalVisible,setImageShow,imageShow}) => 
         });
       };
     const clickImage = async () => {
-        console.log("clicked");
+        // console.log("clicked");
         if (cameraPermission === null) {
           Alert.alert("Checking permissions...");
           return;
@@ -70,9 +72,11 @@ const CameraCapture = ({setFoodInfo,setModalVisible,setImageShow,imageShow}) => 
     
   return (
     <View style={{ alignItems: "center", marginVertical: 10 }}>
-              <TouchableOpacity 
-                onPress={clickImage}
-                style={{ marginVertical: 20, backgroundColor: '#FFA500', padding: 15, borderRadius: 50, alignItems: 'center' }}>
+      
+             
+                <TouchableOpacity 
+                onPress={()=>clickImage()}
+                style={{ marginVertical: 20, backgroundColor: '#FFA500', padding: 15, borderRadius: 10, alignItems: 'center' }}>
                 <Ionicons name="camera" size={30} color="#fff" />
                 {/* <Text style={{ color: '#fff', fontWeight: 'bold' }}>Capture {capturingTopView ? "Top View" : "Left View"}</Text> */}
               </TouchableOpacity>
